@@ -1,0 +1,87 @@
+/* Reset some basic elements */
+body, h1, h2, h3, p, form, input {
+    margin: 0;
+    padding: 0;
+}
+
+/* Body and overall layout styles */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Container for centering the content */
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+
+/* Header styles */
+header {
+    background: #333;
+    color: #fff;
+    padding-top: 30px;
+    min-height: 70px;
+    border-bottom: #bbb 1px solid;
+}
+
+header a {
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 16px;
+}
+
+header ul {
+    padding: 0;
+    list-style: none;
+}
+
+header ul li {
+    display: inline;
+    margin-left: 20px;
+}
+
+/* Main content styles */
+.content {
+    padding: 15px;
+}
+
+/* Form styles */
+form {
+    margin-top: 15px;
+}
+
+form label, form input, form button {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+form input[type="text"], form input[type="submit"] {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+form input[type="submit"] {
+    background-color: #333;
+    color: white;
+    cursor: pointer;
+}
+
+form input[type="submit"]:hover {
+    background-color: #555;
+}
+
+/* Footer styles */
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+}

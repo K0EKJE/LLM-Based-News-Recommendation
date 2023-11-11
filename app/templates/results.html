@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Search Results</h1>
+        {% if results is not none and results|length > 0 %}
+          <ul>
+              {% for result in results %}
+                  <li>{{ result }}</li>
+              {% endfor %}
+          </ul>
+        {% else %}
+            <p>No results found.</p>
+        {% endif %}
+
+        <a href="{{ url_for('index') }}">Back to Search</a>
+    </div>
+</body>
+</html>

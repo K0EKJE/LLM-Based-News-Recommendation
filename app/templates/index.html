@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article Search</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Article Search</h1>
+        <form action="{{ url_for('search') }}" method="post">
+            <input type="text" name="query" placeholder="Enter search query" required>
+            <button type="submit">Search</button>
+        </form>
+    </div>
+</body>
+</html>
