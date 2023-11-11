@@ -2,7 +2,7 @@
 
 
 ```
-your_project/
+News-Recommendation/
 │
 ├── app/
 │   ├── static/
