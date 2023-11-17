@@ -1,6 +1,6 @@
 # News-Recommendation
 
-
+## Project Structure Tree:
 ```
 News-Recommendation/
 │
@@ -10,6 +10,7 @@ News-Recommendation/
 │   ├── templates/
 │   │   ├── index.html          # Main page template
 │   │   └── results.html        # Results display template
+│   │   └── error.html          # Error display template
 │   ├── __init__.py             # Initialize Flask app
 │   └── routes.py               # Flask routes
 │
@@ -19,6 +20,7 @@ News-Recommendation/
 │
 ├── dataset/
 │   └── articles.csv            # Dataset of articles
+│   └── embeddings.npy          # Encoded vectors of dataset
 │
 ├── requirements.txt            # Python dependencies
 └── run.py                      # Entry point to run the Flask app
