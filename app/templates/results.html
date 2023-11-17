@@ -5,22 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Results</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
     <div class="container">
         <h1>Search Results</h1>
         {% if results is not none and results|length > 0 %}
-          <ul>
-              {% for result in results %}
-                  <li>{{ result }}</li>
-              {% endfor %}
-          </ul>
+            <div class="results-list">
+                {% for headline, url in results.items() %}
+                    <div class="result-item">
+                        <a href="{{ url }}" target="_blank">{{ headline }}</a>
+                    </div>
+                {% endfor %}
+            </div>
         {% else %}
             <p>No results found.</p>
         {% endif %}
 
-        <a href="{{ url_for('index') }}">Back to Search</a>
+        <div class="back-link">
+            <a href="{{ url_for('index') }}">Back to Search</a>
+        </div>
     </div>
 </body>
 </html>
