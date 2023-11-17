@@ -1,19 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <meta charset="UTF-8">
+    <title>News Similarity Search</title>
+    <link rel="stylesheet"  href="{{ url_for('static', filename='styles.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Article Search</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
 </head>
 <body>
     <div class="container">
-        <h1>Article Search</h1>
-        <form action="{{ url_for('search') }}" method="post">
-            <input type="text" name="query" placeholder="Enter search query" required>
-            <button type="submit">Search</button>
-        </form>
+        <h1>News Similarity Search</h1>
+
+        <div class="form-container">
+            <h2>Search a URL</h2>
+            <form action="/search_url" method="post">
+                <input type="text" name="url" placeholder="Enter URL here" required>
+                <button type="submit">Submit URL</button>
+            </form>
+        </div>
+
+        <div class="form-container">
+            <h2>Search a Paragraph</h2>
+            <form action="/search_paragraph" method="post">
+                <textarea name="paragraph" placeholder="Enter paragraph here" maxlength="5000" rows="10" required></textarea>
+                <button type="submit">Submit Paragraph</button>
+            </form>
+        </div>
     </div>
+    <!-- <div id="progressBar"></div>
+    <script>
+        function updateProgress() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/progress', true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    var progressBar = document.getElementById('progressBar');
+                    progressBar.style.width = response.progress + '%';
+                }
+            };
+            xhr.send();
+        }
+
+        // Update progress every second (1000 milliseconds)
+        setInterval(updateProgress, 1000);
+    </script> -->
 </body>
 </html>
