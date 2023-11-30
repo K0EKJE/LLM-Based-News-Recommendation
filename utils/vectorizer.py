@@ -6,6 +6,7 @@ from nltk.stem import WordNetLemmatizer
 import re
 import numpy as np
 
+
 from transformers import T5ForConditionalGeneration, T5Tokenizer, BartForConditionalGeneration, BartTokenizer
 from sentence_transformers import SentenceTransformer
 
@@ -72,6 +73,8 @@ def process_and_encode_articles(texts, model_name='bart'):
 
         return summaries, embeddings
 
+
+    
 # Function to process and encode articles from multiple URLs
 def process_and_encode_url(urls, model_name='bart'):
         if isinstance(texts, str):
@@ -99,3 +102,12 @@ def encode_dataset(df):
  
         # To load the embeddings back
         # loaded_embeddings = np.load('dataset/embeddings.npy')
+
+    
+def process_single_article(text, model_name='bart'):
+        preprocessed_text = preprocess_text(text)
+        summary = summarize_text(preprocessed_text, model_name)
+        embedding = encode_text(summary)
+        return summary, embedding
+
+
