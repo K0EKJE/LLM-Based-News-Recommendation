@@ -16,7 +16,7 @@ News-Recommendation/
 │
 ├── utils/
 │   ├── vectorizer.py           # Script for article vectorization
-│   └── indexer.py              # Script for creating and querying the
+│   └── indexer.py              # Script for creating and querying the index
 │   └── util.py                 # Script for dataset partition and interaction with S3
 │
 ├── dataset/
