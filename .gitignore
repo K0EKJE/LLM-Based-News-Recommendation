@@ -1,5 +1,6 @@
 .ipynb_checkpoints/
 __pycache__/
 *.ipynb
-NYTimes.csv
+nyt_cleaned.csv
 creds.py
+example_df.csv
