@@ -76,25 +76,29 @@ def read_from_partitions(bucket_name, base_file_path, target_indices, partition_
         rows = []
 
         for index in target_indices:
-            partition_number = index // partition_size + 1
 
+            partition_number = index // partition_size + 1
             if partition_number not in partition_dfs:
+
                 # Calculate the partition file name
                 partition_file_name = f"{base_file_path}_part_{partition_number}.csv"
 
                 # Get the object from S3
                 response = s3.get_object(Bucket=bucket_name, Key=partition_file_name)
                 file_content = response['Body'].read()
-
+        
                 # Read the file content into a pandas DataFrame
-                df = pd.read_csv(BytesIO(file_content), index_col='Index')
+                df = pd.read_csv(BytesIO(file_content))
                 partition_dfs[partition_number] = df
+                
             else:
                 df = partition_dfs[partition_number]
 
             # Retrieve the row by index if it exists in the DataFrame
-            if index in df.index:
-                rows.append(df.loc[index])
+            if index in list(df.Index):
+
+                rows.append(df[df.Index == index])
 
         # Combine all rows into a single DataFrame
-        return pd.concat(rows, axis=1).T
+        return pd.concat(rows, axis=0)
+
