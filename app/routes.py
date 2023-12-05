@@ -17,8 +17,8 @@ def index():
 def search_paragraph():
         # Get the text passage from the form
         text_passage = request.form['paragraph']
-        if len(text_passage) > 5000:
-            return render_template('error.html', message="Paragraph too long. Maximum 5000 characters allowed.")
+        if len(text_passage) <100:
+            return render_template('error.html', message="Paragraph too Short. Minimum 100 characters required.")
 
         summary, embedding = process_and_encode_articles([text_passage])
 
@@ -30,7 +30,7 @@ def search_paragraph():
         aws_access_key_id = awsconfig["aws_access_key_id"]
         aws_secret_access_key =awsconfig["aws_secret_access_key"]
 
-        df = read_from_partitions(bucket_name, base_file_path,  I[0], 1067, aws_access_key_id, aws_secret_access_key)
+        df = read_from_partitions(bucket_name, base_file_path,  I[0], 990, aws_access_key_id, aws_secret_access_key)
         # df = pd.read_csv('dataset/example_df.csv')
         # Render a template with the results
         # result = {i:j for i,j in zip(df['headline'][I[0]],df['link'][I[0]])}
@@ -53,7 +53,7 @@ def search_url():
         aws_access_key_id = awsconfig["aws_access_key_id"]
         aws_secret_access_key =awsconfig["aws_secret_access_key"]
 
-        df = read_from_partitions(bucket_name, base_file_path,  I[0], 1067, aws_access_key_id, aws_secret_access_key)
+        df = read_from_partitions(bucket_name, base_file_path,  I[0], 990, aws_access_key_id, aws_secret_access_key)
 
         result = {i:j for i,j in zip(df['headline'],df['link'])}
         return render_template('results.html', results= result)
