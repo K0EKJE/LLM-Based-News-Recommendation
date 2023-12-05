@@ -5,6 +5,7 @@ from utils.util import read_from_partitions
 import pandas as pd
 from flask import Flask, jsonify, session
 from creds import awsconfig
+from news_articles.news_articles.spider_runner import NewsArticleSpiderRunner
 
 app = Flask(__name__)
 
@@ -39,9 +40,18 @@ def search_paragraph():
 
 @app.route('/search_url', methods=['POST'])
 def search_url():
+        selected_source = request.form.get('source')
 
-        raw_text = download_parse_article(request.form['url'])
-        text_passage = preprocess_text(raw_text)
+        if selected_source == 'huffpost':
+            # Use customized scraper for Huffpost
+             print("running spider")
+             raw_text = NewsArticleSpiderRunner.run_spider(request.form['url'])
+
+             text_passage = preprocess_text(raw_text[0])
+        else:
+            # Use package to scrape for other cases
+            raw_text = download_parse_article(request.form['url'])
+            text_passage = preprocess_text(raw_text)
 
         summary, embedding = process_and_encode_articles([text_passage])
 
@@ -57,6 +67,28 @@ def search_url():
 
         result = {i:j for i,j in zip(df['headline'],df['link'])}
         return render_template('results.html', results= result)
+
+
+# @app.route('/search_url', methods=['POST'])
+# def search_url():
+#
+#         raw_text = download_parse_article(request.form['url'])
+#         text_passage = preprocess_text(raw_text)
+#
+#         summary, embedding = process_and_encode_articles([text_passage])
+#
+#         index = get_index()
+#         D, I = similarity_search(embedding[0].reshape(1,-1), 5, index)
+#
+#         bucket_name = 'hrnewsarticles'
+#         base_file_path = 'NYTimes'
+#         aws_access_key_id = awsconfig["aws_access_key_id"]
+#         aws_secret_access_key =awsconfig["aws_secret_access_key"]
+#
+#         df = read_from_partitions(bucket_name, base_file_path,  I[0], 990, aws_access_key_id, aws_secret_access_key)
+#
+#         result = {i:j for i,j in zip(df['headline'],df['link'])}
+#         return render_template('results.html', results= result)
 
 if __name__ == '__main__':
     app.run(debug=True)
