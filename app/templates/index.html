@@ -10,6 +10,24 @@
     <div class="container">
         <h1>News Similarity Search</h1>
 
+        <!-- <div class="form-container">
+            <h2>Search a URL</h2>
+            <form action="/search_url" method="post">
+                <input type="text" name="url" placeholder="Enter URL here" required>
+                <button type="submit">Submit URL</button>
+            </form>
+        </div> -->
+        <div class="source-selection">
+            <input type="radio" id="huffpost" name="source" value="huffpost">
+            <label for="huffpost">HuffPost</label>
+
+            <input type="radio" id="nytimes" name="source" value="nytimes">
+            <label for="nytimes">NYTimes</label>
+
+            <input type="radio" id="general" name="source" value="general" checked>
+            <label for="general">General</label>
+        </div>
+
         <div class="form-container">
             <h2>Search a URL</h2>
             <form action="/search_url" method="post">
