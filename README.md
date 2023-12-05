@@ -26,3 +26,8 @@ News-Recommendation/
 ├── requirements.txt            # Python dependencies
 └── run.py                      # Entry point to run the Flask app
 ```
+
+
+<p align="center">
+  <img src="Project structure.png" style="width:900px;height:500px;">
+</p>
