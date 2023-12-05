@@ -95,10 +95,10 @@ def process_and_encode_url(urls, model_name='bart'):
         return summaries, embeddings
     
 
-def encode_dataset(df):
+def encode_dataset(df, output_path):
 
         summaries, embedding = process_and_encode_articles(df['text'])
-        np.save('dataset/embeddings.npy', embedding)
+        np.save(output_path, embedding)
  
         # To load the embeddings back
         # loaded_embeddings = np.load('dataset/embeddings.npy')
