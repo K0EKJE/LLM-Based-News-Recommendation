@@ -1,4 +1,4 @@
-import scrapy
+import scrapy    
 
 class NewsArticleSpider(scrapy.Spider):
     
@@ -52,3 +52,4 @@ class NewsArticleSpider(scrapy.Spider):
                 'headline': headline,
                 'text':text
             }
+            
