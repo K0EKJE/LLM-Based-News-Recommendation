@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 from utils.vectorizer import process_and_encode_articles,encode_dataset, preprocess_text, download_parse_article
 from utils.indexer import get_index, index_dataset,similarity_search
-from utils.util import read_from_partitions
+from utils.util import read_from_partitions,read_from_local_partitions
 import pandas as pd
 from flask import Flask, jsonify, session
 from creds import awsconfig
@@ -30,11 +30,11 @@ def search_paragraph():
         base_file_path = 'NYTimes'
         aws_access_key_id = awsconfig["aws_access_key_id"]
         aws_secret_access_key =awsconfig["aws_secret_access_key"]
+        df =read_from_local_partitions(I[0], 990)
 
-        df = read_from_partitions(bucket_name, base_file_path,  I[0], 990, aws_access_key_id, aws_secret_access_key)
-        # df = pd.read_csv('dataset/example_df.csv')
-        # Render a template with the results
-        # result = {i:j for i,j in zip(df['headline'][I[0]],df['link'][I[0]])}
+        # To enable AWS:
+        #df = read_from_partitions(bucket_name, base_file_path,  I[0], 990, aws_access_key_id, aws_secret_access_key)
+
         result = {i:j for i,j in zip(df['headline'],df['link'])}
         return render_template('results.html', results= result)
 
@@ -62,8 +62,9 @@ def search_url():
         base_file_path = 'NYTimes'
         aws_access_key_id = awsconfig["aws_access_key_id"]
         aws_secret_access_key =awsconfig["aws_secret_access_key"]
-
-        df = read_from_partitions(bucket_name, base_file_path,  I[0], 990, aws_access_key_id, aws_secret_access_key)
+        df =read_from_local_partitions(I[0], 990)
+        # To enable AWS:
+        #df = read_from_partitions(bucket_name, base_file_path,  I[0], 990, aws_access_key_id, aws_secret_access_key)
 
         result = {i:j for i,j in zip(df['headline'],df['link'])}
         return render_template('results.html', results= result)

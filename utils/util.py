@@ -86,11 +86,11 @@ def read_from_partitions(bucket_name, base_file_path, target_indices, partition_
                 # Get the object from S3
                 response = s3.get_object(Bucket=bucket_name, Key=partition_file_name)
                 file_content = response['Body'].read()
-        
+
                 # Read the file content into a pandas DataFrame
                 df = pd.read_csv(BytesIO(file_content))
                 partition_dfs[partition_number] = df
-                
+
             else:
                 df = partition_dfs[partition_number]
 
@@ -102,3 +102,33 @@ def read_from_partitions(bucket_name, base_file_path, target_indices, partition_
         # Combine all rows into a single DataFrame
         return pd.concat(rows, axis=0)
 
+def read_from_local_partitions(target_indices, partition_size):
+
+        base_file_path = "NYTimes"
+        # Dictionary to hold dataframes for each partition
+        partition_dfs = {}
+
+        # List to hold the rows corresponding to target indices
+        rows = []
+
+        for index in target_indices:
+
+            partition_number = index // partition_size + 1
+            if partition_number not in partition_dfs:
+
+                # Calculate the partition file name
+                partition_file_name = f"dataset/partitioned_nyt/{base_file_path}_part_{partition_number}.csv"
+
+                df = pd.read_csv(partition_file_name)
+                partition_dfs[partition_number] = df
+
+            else:
+                df = partition_dfs[partition_number]
+
+            # Retrieve the row by index if it exists in the DataFrame
+            if index in list(df.Index):
+
+                rows.append(df[df.Index == index])
+
+        # Combine all rows into a single DataFrame
+        return pd.concat(rows, axis=0)
