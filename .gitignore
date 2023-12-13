@@ -2,5 +2,5 @@
 __pycache__/
 *.ipynb
 nyt_cleaned.csv
-
+creds.py
 example_df.csv
